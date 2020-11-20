@@ -11,5 +11,9 @@ public interface OTPGenerateService {
 	public List<Contact> getEmailData(String email);
 
 	public String doValidateOTP(String email, int code);
+	
+	public int doResendOTP(String email);
+
+	public void doDeleteData(String email);
 
 }

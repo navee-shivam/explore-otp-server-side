@@ -52,11 +52,23 @@ public class OTPGenerateServiceImpl implements OTPGenerateService {
 		return "failure";
 	}
 
+	@Override
+	public int doResendOTP(String email) {
+		List<Contact> contact = getEmailData(email);
+		return contact.get(0).getOtp();
+	}
+
 	private boolean isPresentCode(List<Contact> contact, int code) {
 		if (!contact.isEmpty())
 			if (contact.get(0).getOtp() == code)
 				return true;
 		return false;
+	}
+
+	@Override
+	public void doDeleteData(String email) {
+		List<Contact> contact = getEmailData(email);
+		saveRandomWithEmailDao.deleteById(contact.get(0).getId());
 	}
 
 }
