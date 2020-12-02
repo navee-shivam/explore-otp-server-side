@@ -30,8 +30,8 @@ public class SelfController {
 	}
 
 	@PostMapping("/doGenerateOTP")
-	public void doGenerateOTP(@RequestBody String email) {
-		otpGenerateService.doRandomNumberGeneration(email);
+	public int doGenerateOTP(@RequestBody String email) {
+		return otpGenerateService.doRandomNumberGeneration(email);
 	}
 	
 	@GetMapping("/doCheck/{email}")

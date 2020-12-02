@@ -16,10 +16,11 @@ public class OTPGenerateServiceImpl implements OTPGenerateService {
 	private SaveRandomWithEmailDao saveRandomWithEmailDao;
 
 	@Override
-	public void doRandomNumberGeneration(String mailId) {
+	public int doRandomNumberGeneration(String mailId) {
 		Contact contactModel = MakeEntity(mailId);
-		saveRandomWithEmailDao.save(contactModel);
 		System.out.println("Inserted : " + contactModel.toString());
+		Contact contactSaved =  saveRandomWithEmailDao.save(contactModel);
+		return contactSaved.getId();
 	}
 
 	@Override
@@ -55,6 +56,7 @@ public class OTPGenerateServiceImpl implements OTPGenerateService {
 	@Override
 	public int doResendOTP(String email) {
 		List<Contact> contact = getEmailData(email);
+		System.out.println(contact);
 		return contact.get(0).getOtp();
 	}
 
@@ -66,9 +68,15 @@ public class OTPGenerateServiceImpl implements OTPGenerateService {
 	}
 
 	@Override
-	public void doDeleteData(String email) {
+	public String doDeleteData(String email) {
 		List<Contact> contact = getEmailData(email);
-		saveRandomWithEmailDao.deleteById(contact.get(0).getId());
+		if(!contact.isEmpty()) {
+			saveRandomWithEmailDao.deleteById(contact.get(0).getId());
+			System.out.println("Data Deleted");
+			return "deleted";
+		}
+		System.out.println("Data not deleted");
+		return "not_deleted";
 	}
 
 }

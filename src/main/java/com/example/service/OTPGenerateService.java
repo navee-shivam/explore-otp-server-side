@@ -6,7 +6,7 @@ import com.example.model.Contact;
 
 public interface OTPGenerateService {
 
-	public void doRandomNumberGeneration(String mailId);
+	public int doRandomNumberGeneration(String mailId);
 
 	public List<Contact> getEmailData(String email);
 
@@ -14,6 +14,6 @@ public interface OTPGenerateService {
 	
 	public int doResendOTP(String email);
 
-	public void doDeleteData(String email);
+	public String doDeleteData(String email);
 
 }
